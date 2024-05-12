@@ -390,8 +390,8 @@ static int sun4i_spi_set_speed(struct udevice *dev, uint speed)
 	struct sun4i_spi_plat *plat = dev_get_plat(dev);
 	struct sun4i_spi_priv *priv = dev_get_priv(dev);
 
-	if (speed > plat->max_hz)
-		speed = plat->max_hz;
+	// if (speed > plat->max_hz)
+	// 	speed = plat->max_hz;
 
 	if (speed < SUN4I_SPI_MIN_RATE)
 		speed = SUN4I_SPI_MIN_RATE;
