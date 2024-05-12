@@ -116,15 +116,12 @@
 		};
 	};
 
-	pwm: pwm@1c21400 {
-		compatible = "allwinner,sun7i-a20-pwm";
-		reg = <0x01c21400 0x400>;
-		clocks = <&osc24M>;
-		#pwm-cells = <3>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&pwm0_pins>;
-		status = "okay";
-	};
+};
+
+&pwm {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pwm0_pins>;
+	status = "okay";
 };
 
 &pio {
