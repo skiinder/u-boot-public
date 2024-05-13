@@ -16,6 +16,46 @@
 	chosen {
 		stdout-path = "serial0:115200n8";
 	};
+	
+	backlight: backlight {
+		compatible = "pwm-backlight";
+		pwms = <&pwm 0 1000000 0>;
+		brightness-levels = <0 30 40 50 60 70 100>;
+		default-brightness-level = <6>;
+	};
+
+	panel: panel {
+		compatible = "qiaodian,qd43003c0-40", "simple-panel";
+		backlight = <&backlight>;
+
+		port {
+			panel_input: endpoint {
+				remote-endpoint = <&tcon0_out_lcd>;
+			};
+		};
+
+		display-timings {
+			timing0: timing0 {
+				clock-frequency = <33000000>;
+				hactive = <800>;
+				vactive = <480>;
+
+				hfront-porch = <209>;
+				hsync-len = <30>;
+				hback-porch = <16>;
+
+				vback-porch = <22>;
+				vsync-len = <1>;
+				vfront-porch = <22>;
+				
+				hsync-active = <0>;
+				vsync-active = <0>;
+				de-active = <1>;
+				pixelclk-active = <0>;
+
+			};
+		};
+	};
 };
 
 &mmc0 {
@@ -45,3 +85,46 @@
     };
 };
 
+&pwm {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pwm0_pins>;
+	status = "okay";
+};
+
+&pio {
+	lcd_pins: lcd-pins {
+		pins = "PE0", "PE1", "PE2", "PE3", "PE4", "PE5",
+		       "PE6", "PE7", "PE8", "PE9", "PE10", "PE11",
+		       "PE12", "PE13", "PE14", "PE15", "PE16", "PE17",
+		       "PE18", "PE19", "PE23", "PE24";
+		function = "lcd";
+	};
+
+	pwm0_pins: pwm0-pins {
+		pins = "PB4";
+		function = "pwm0";
+	};
+};
+
+&tcon0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&lcd_pins>;
+	status = "okay";
+};
+
+&tcon0_out {
+	tcon0_out_lcd: endpoint@0 {
+		reg = <0>;
+		remote-endpoint = <&panel_input>;
+	};
+};
+
+&usb_otg {
+	dr_mode = "otg";
+	status = "okay";
+};
+
+&usbphy {
+	usb0_id_det-gpios = <&pio 5 6 GPIO_ACTIVE_HIGH>;
+	status = "okay";
+};
