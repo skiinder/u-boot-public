@@ -25,7 +25,7 @@
 	};
 
 	panel: panel {
-		compatible = "qiaodian,qd43003c0-40", "simple-panel";
+		compatible = "simple-panel";
 		backlight = <&backlight>;
 
 		port {
