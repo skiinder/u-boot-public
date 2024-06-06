@@ -25,7 +25,7 @@
 	};
 
 	panel: panel {
-		compatible = "simple-panel";
+		compatible = "sh,cj050qgh50_05442y", "simple-panel";
 		backlight = <&backlight>;
 
 		port {
@@ -36,7 +36,7 @@
 
 		display-timings {
 			timing0: timing0 {
-				clock-frequency = <33000000>;
+				clock-frequency = <60000000>;
 				hactive = <800>;
 				vactive = <480>;
 
