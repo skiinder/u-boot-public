@@ -74,6 +74,7 @@
 // 开启spi设备
 &spi0 {
     status = "okay";
+	spi-max-frequency = <100000000>;
     // 在spi总线上声明flash芯片
     w25q256:w25q256@0 {
         compatible = "winbond,w25q256", "jedec,spi-nor";

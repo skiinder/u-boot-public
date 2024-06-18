@@ -72,7 +72,7 @@ DECLARE_GLOBAL_DATA_PTR;
 #define SUN4I_XMIT_CNT(cnt)		((cnt) & SUN4I_MAX_XFER_SIZE)
 #define SUN4I_FIFO_STA_RF_CNT_BITS	0
 
-#ifdef CONFIG_MACH_SUNIV
+#ifdef CONFIG_MACH_SUN8I_V3S
 /* the AHB clock, which we programmed to be 1/3 of PLL_PERIPH@600MHz */
 #define SUNXI_INPUT_CLOCK		200000000	/* 200 MHz */
 #define SUN4I_SPI_MAX_RATE		(SUNXI_INPUT_CLOCK / 2)
@@ -390,8 +390,8 @@ static int sun4i_spi_set_speed(struct udevice *dev, uint speed)
 	struct sun4i_spi_plat *plat = dev_get_plat(dev);
 	struct sun4i_spi_priv *priv = dev_get_priv(dev);
 
-	// if (speed > plat->max_hz)
-	// 	speed = plat->max_hz;
+	if (speed > plat->max_hz)
+		speed = plat->max_hz;
 
 	if (speed < SUN4I_SPI_MIN_RATE)
 		speed = SUN4I_SPI_MIN_RATE;
